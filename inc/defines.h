@@ -60,11 +60,12 @@ retry:                                      \
   ret < 0 ? ret : s - rem;                  \
 })
 
-#define MAS_ACCEPT(f) \
-({\
+#define MAS_ACCEPT(f, a)                    \
+({                                          \
+  socklen_t len = sizeof(a);                \
   typeof(f) ret;                            \
 retry:                                      \
-  ret = MAS_ACTION_TEMP_RETRY(accept(f, SOMAXCONN));\
+  ret = MAS_ACTION_TEMP_RETRY(accept((f), (struct sockaddr *)&a, &len); \
   if(unlike(ret <= 0)) {                    \
     if(ret < 0) {                           \
       if( errno == EAGAINENETDOWN ||        \
