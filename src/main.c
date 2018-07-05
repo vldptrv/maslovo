@@ -14,6 +14,7 @@ static struct sockaddr_in ssa;
 static char buf[1024];
 
 static init(uint32_t ip, uint16_t port);
+static work(void);
 
 int main(int argc, char **argv)
 {
@@ -47,4 +48,9 @@ static init(uint32_t ip, uint16_t port) {
   if(listen(sfd, SOMAXCONN)) {
     error(1, errno, "listen()"); 
   }  
+}
+
+static work(void) {
+    MAS_READ(cfd, buf, sizeof(buf));
+    MAS_SEND(cfd, buf, sizeof(buf));
 }
