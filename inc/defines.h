@@ -60,5 +60,26 @@ retry:                                      \
   ret < 0 ? ret : s - rem;                  \
 })
 
-  
+#define MAS_ACCEPT(f) \
+({\
+  typeof(f) ret;                            \
+retry:                                      \
+  ret = MAS_ACTION_TEMP_RETRY(accept(r,b,c));\
+  if(unlike(ret <= 0)) {                    \
+    if(ret < 0) {                           \
+      if( errno == EAGAINENETDOWN ||        \
+          errno == EPROTO         ||        \
+          errno == ENOPROTOOPT    ||        \
+          errno == EHOSTDOWN      ||        \
+          errno == ENONET         ||        \
+          errno == EHOSTUNREACH   ||        \
+          errno == EOPNOTSUPP     ||        \
+          errno == ENETUNREACH) {           \
+        goto retry;                         \
+      }                                     \
+    }                                       \
+  }                                         \
+  ret;                                      \
+})
+
 #endif // MAS_DEFINES_H
