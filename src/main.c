@@ -16,8 +16,12 @@ static init(uint32_t ip, uint16_t port);
 
 int main(int argc, char **argv)
 {
+  init(htonl(argc > 1 ? atoi(argv[1]) : 0), htons(argc > 2 ? atoi(argv[2]) : 8090));
   
-  
+  while(1)
+  {
+    
+  }
 }
 
 static init(uint32_t ip, uint16_t port) {
@@ -39,10 +43,5 @@ static init(uint32_t ip, uint16_t port) {
      
   if(listen(sfd, SOMAXCONN)) {
     error(1, errno, "listen()"); 
-  }
-     
-  while(1) {
-     
-  }
-     
+  }  
 }
