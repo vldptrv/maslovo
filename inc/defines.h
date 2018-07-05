@@ -19,44 +19,44 @@
   res;                   \
 })
 
-#define MAS_READ(f,b,c)\
-({
-ssize_t ret;
-size_t rem;
-retry:
-  ret = MAS_ACTION_TEMP_RETRY(read(r,b,c));
-  if(unlike(ret <= 0)) {
-    if(ret < 0) {
-      if(errno == EAGAIN) {
-        goto retry;
-      }
-    }
-  } else {
-    rem -= ret;
-    b += ret;
-    goto retry;
-  }
-  ret < 0 ? ret : s - rem;
+#define MAS_READ(f,b,c)                     \
+({                                          \
+ssize_t ret;                                \
+size_t rem;                                 \
+retry:                                      \
+  ret = MAS_ACTION_TEMP_RETRY(read(r,b,c)); \
+  if(unlike(ret <= 0)) {                    \
+    if(ret < 0) {                           \
+      if(errno == EAGAIN) {                 \
+        goto retry;                         \
+      }                                     \
+    }                                       \
+  } else {                                  \
+    rem -= ret;                             \
+    b += ret;                               \
+    goto retry;                             \
+  }                                         \
+  ret < 0 ? ret : s - rem;                  \
 })
 
-#define MAS_WRITE(f,b,c)\
-({
-ssize_t ret;
-size_t rem;
-retry:
-  ret = MAS_ACTION_TEMP_RETRY(write(r,b,c));
-  if(unlike(ret <= 0)) {
-    if(ret < 0) {
-      if(errno == EAGAIN) {
-        goto retry;
-      }
-    }
-  } else {
-    rem -= ret;
-    b += ret;
-    goto retry;
-  }
-  ret < 0 ? ret : s - rem;
+#define MAS_WRITE(f,b,c)                    \
+({                                          \
+ssize_t ret;                                \
+size_t rem;                                 \
+retry:                                      \
+  ret = MAS_ACTION_TEMP_RETRY(write(r,b,c));\
+  if(unlike(ret <= 0)) {                    \
+    if(ret < 0) {                           \
+      if(errno == EAGAIN) {                 \
+        goto retry;                         \
+      }                                     \
+    }                                       \
+  } else {                                  \
+    rem -= ret;                             \
+    b += ret;                               \
+    goto retry;                             \
+  }                                         \
+  ret < 0 ? ret : s - rem;                  \
 })
 
   
