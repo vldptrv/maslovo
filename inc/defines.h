@@ -64,7 +64,7 @@ retry:                                      \
 ({\
   typeof(f) ret;                            \
 retry:                                      \
-  ret = MAS_ACTION_TEMP_RETRY(accept(r,b,c));\
+  ret = MAS_ACTION_TEMP_RETRY(accept(f, SOMAXCONN));\
   if(unlike(ret <= 0)) {                    \
     if(ret < 0) {                           \
       if( errno == EAGAINENETDOWN ||        \
