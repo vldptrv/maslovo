@@ -11,6 +11,7 @@ static int sfd;
 static int cfd;
 static int pid;
 static struct sockaddr_in ssa;
+static char buf[1024];
 
 static init(uint32_t ip, uint16_t port);
 
@@ -20,7 +21,9 @@ int main(int argc, char **argv)
   
   while(1)
   {
-    cfd = MAS_ACTION_TEMP_RETRY(
+    cfd = MAS_ACCEPT(sfd, ssa);
+    MAS_READ(cfd, buf, sizeof(buf));
+    MAS_SEND(cfd, buf, sizeof(buf));
   }
 }
 
