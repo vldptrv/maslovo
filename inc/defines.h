@@ -4,6 +4,7 @@
 #include <linux/types.h>
 #include <unistd.h>
 #include <errno.h>
+#include <error.h>
 
 #undef unlike
 #undef like
