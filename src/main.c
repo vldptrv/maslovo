@@ -20,7 +20,7 @@ int main(int argc, char **argv)
   
   while(1)
   {
-    
+    cfd = MAS_ACTION_TEMP_RETRY(
   }
 }
 
